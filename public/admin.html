@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración - Sistema de Pagos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-body">
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="header-content">
+                    <h1>📊 Panel de Administración</h1>
+    </header>
+
+    <main class="container">
+        <!-- Sección de Estadísticas -->
+        <section class="stats-section">
+            <h2>📈 Estadísticas en Tiempo Real</h2>
+            <div class="stats-grid">
+                <div class="stat-card stat-primary">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-content">
+                        <h3 id="totalRecaudado">$0.00</h3>
+                        <p>Total Recaudado</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-success">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-content">
+                        <h3 id="totalPagos">0</h3>
+                        <p>Total de Pagos</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-info">
+                    <div class="stat-icon">💳</div>
+                    <div class="stat-content">
+                        <h3 id="pagoVisa">0</h3>
+                        <p>Pagos con Visa</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-warning">
+                    <div class="stat-icon">💳</div>
+                    <div class="stat-content">
+                        <h3 id="pagoMastercard">0</h3>
+                        <p>Pagos con Mastercard</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-danger">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <h3 id="promedioImporte">$0.00</h3>
+                        <p>Importe Promedio</p>
+                    </div>
+                </div>
+                <div class="stat-card stat-secondary">
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-content">
+                        <h3 id="totalEmpresas">0</h3>
+                        <p>Empresas Activas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Ventas -->
+            <a href="/" class="btn-back">← Volver a Pagos</a>
+        </div>
+    </header>
+
+    <!-- Navegación de pestañas -->
+    <div class="tabs-container">
+        <button class="tab-btn active" data-tab="ventas">📊 Consultar Ventas</button>
+        <button class="tab-btn" data-tab="empresas">🏢 Gestionar Empresas</button>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="admin-container">
+        
+        <!-- TAB: Consultar Ventas -->
+        <div id="tab-ventas" class="tab-content active">
+            <div class="card">
+                <h2>Consultar Ventas</h2>
+                
+                <!-- Filtros -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="buscarCliente">Buscar Cliente:</label>
+                        <input type="text" id="buscarCliente" placeholder="Nombre o apellido...">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filtroEmpresa">Empresa:</label>
+                        <select id="filtroEmpresa">
+                            <option value="">Todas las empresas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filtroMetodoPago">Método de Pago:</label>
+                        <select id="filtroMetodoPago">
+                            <option value="">Todos los métodos</option>
+                            <option value="Visa">Visa</option>
+                            <option value="Mastercard">Mastercard</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="fechaDesde">Desde:</label>
+                        <input type="date" id="fechaDesde">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="fechaHasta">Hasta:</label>
+                        <input type="date" id="fechaHasta">
+                    </div>
+                    
+                    <button class="btn-primary" onclick="consultarVentas()">Buscar</button>
+                    <button class="btn-secondary" onclick="limpiarFiltros()">Limpiar</button>
+                    <button class="btn-export" onclick="exportarCSV()">📥 Exportar CSV</button>
+                </div>
+
+                <!-- Estadísticas -->
+                <div class="stats-container" id="statsContainer">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalVentas">0</div>
+                        <div class="stat-label">Total Ventas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalImporte">$0</div>
+                        <div class="stat-label">Importe Total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="promedioImporte">$0</div>
+                        <div class="stat-label">Promedio</div>
+                    </div>
+                </div>
+
+                <!-- Tabla de ventas -->
+                <div class="table-container">
+                    <table id="tablaVentas">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Comprobante</th>
+                                <th>Fecha</th>
+                                <th>Cliente</th>
+                                <th>Empresa</th>
+                                <th>Importe</th>
+                                <th>Método</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ventasTableBody">
+                            <tr>
+                                <td colspan="7" class="no-data">No hay ventas para mostrar</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Gestionar Empresas -->
+        <div id="tab-empresas" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Gestión de Empresas</h2>
+                    <button class="btn-primary" onclick="mostrarFormularioEmpresa()">+ Nueva Empresa</button>
+                </div>
+
+                <!-- Formulario de empresa (oculto por defecto) -->
+                <div id="formEmpresaContainer" class="form-container" style="display: none;">
+                    <h3 id="formTitle">Nueva Empresa</h3>
+                    <form id="formEmpresa">
+                        <input type="hidden" id="empresaId">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresaNombre">Nombre de la Empresa *</label>
+                                <input 
+                                    type="text" 
+                                    id="empresaNombre" 
+                                    placeholder="Ej: Edesur"
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="empresaContacto">Contacto</label>
+                                <input 
+                                    type="text" 
+                                    id="empresaContacto" 
+                                    placeholder="Ej: Servicio Eléctrico"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="empresaEmail">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="empresaEmail" 
+                                    placeholder="info@empresa.com"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="empresaTelefono">Teléfono</label>
+                                <input 
+                                    type="tel" 
+                                    id="empresaTelefono" 
+                                    placeholder="0800-XXX-XXXX"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Guardar</button>
+                            <button type="button" class="btn-secondary" onclick="cancelarFormularioEmpresa()">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Lista de empresas -->
+                <div class="table-container">
+                    <table id="tablaEmpresas">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Contacto</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="empresasTableBody">
+                            <tr>
+                                <td colspan="6" class="no-data">Cargando empresas...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación de eliminación -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon warning">⚠️</div>
+            <h3>Confirmar Eliminación</h3>
+            <p id="confirmMessage">¿Está seguro que desea eliminar esta empresa?</p>
+            <div class="modal-actions">
+                <button class="btn-danger" onclick="confirmarEliminacion()">Eliminar</button>
+                <button class="btn-secondary" onclick="closeConfirmModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de notificación -->
+    <div id="notificationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon success" id="notificationIcon">✓</div>
+            <h3 id="notificationTitle">Éxito</h3>
+            <p id="notificationMessage"></p>
+            <button class="btn-modal" onclick="closeNotificationModal()">Aceptar</button>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pagos Online</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Sección izquierda - Ilustración -->
+        <div class="left-section">
+            <div class="illustration-box">
+                <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Fondo del teléfono -->
+                    <rect x="100" y="50" width="200" height="380" rx="20" fill="#8B1538" />
+                    
+                    <!-- Pantalla del teléfono -->
+                    <rect x="115" y="80" width="170" height="300" rx="10" fill="#A0153E" />
+                    
+                    <!-- Iconos de la tarjeta en pantalla -->
+                    <rect x="130" y="120" width="140" height="90" rx="8" fill="#C73659" />
+                    <circle cx="200" cy="165" r="25" fill="#FF6B9D" opacity="0.3" />
+                    <rect x="145" y="190" width="50" height="8" rx="4" fill="#FFB3C6" />
+                    
+                    <!-- Mano sosteniendo el teléfono -->
+                    <ellipse cx="200" cy="450" rx="80" ry="40" fill="#D4A574" />
+                    <path d="M 140 440 Q 120 420 140 400 L 150 430 Z" fill="#C9975B" />
+                    <path d="M 260 440 Q 280 420 260 400 L 250 430 Z" fill="#C9975B" />
+                    
+                    <!-- Dedos -->
+                    <ellipse cx="180" cy="380" rx="25" ry="35" fill="#D4A574" />
+                    <ellipse cx="220" cy="380" rx="25" ry="35" fill="#D4A574" />
+                    
+                    <!-- Bolsa de compras -->
+                    <path d="M 280 200 L 320 200 L 310 280 L 290 280 Z" fill="#C73659" />
+                    <path d="M 285 200 Q 295 180 305 200" stroke="#C73659" stroke-width="3" fill="none" />
+                    <circle cx="300" cy="230" r="8" fill="#FF6B9D" />
+                </svg>
+            </div>
+            <div class="footer-logo">
+                <p>Banco Robles</p>
+            </div>
+        </div>
+
+        <!-- Sección derecha - Formulario de pago -->
+        <div class="right-section">
+            <div class="payment-form-container">
+                <h2>¡Hora de pagar!</h2>
+                <p class="form-subtitle">A continuación ingresá tus datos</p>
+                
+                <form id="paymentForm">
+                    <!-- Datos del cliente -->
+                    <div class="form-group">
+                        <label for="nombre">Nombre *</label>
+                        <input 
+                            type="text" 
+                            id="nombre" 
+                            name="nombre" 
+                            placeholder="Ingrese su nombre"
+                            minlength="2"
+                            maxlength="50"
+                            pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+                            title="Solo letras, mínimo 2 caracteres"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apellido">Apellido *</label>
+                        <input 
+                            type="text" 
+                            id="apellido" 
+                            name="apellido" 
+                            placeholder="Ingrese su apellido"
+                            minlength="2"
+                            maxlength="50"
+                            pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+                            title="Solo letras, mínimo 2 caracteres"
+                            required
+                        >
+                    </div>
+
+                    <!-- Empresa a pagar -->
+                    <div class="form-group">
+                        <label for="empresa">Empresa a Pagar *</label>
+                        <select id="empresa" name="empresa" required>
+                            <option value="">Seleccione una empresa...</option>
+                        </select>
+                    </div>
+
+                    <!-- Importe -->
+                    <div class="form-group">
+                        <label for="importe">Importe *</label>
+                        <div class="input-with-icon">
+                            <span class="currency-symbol">$</span>
+                            <input 
+                                type="number" 
+                                id="importe" 
+                                name="importe" 
+                                placeholder="0.00"
+                                step="0.01"
+                                min="100"
+                                max="100000"
+                                title="Importe entre $100 y $100,000"
+                                required
+                            >
+                        </div>
+                        <small class="form-hint">Monto mínimo: $100 - Máximo: $100,000</small>
+                    </div>
+
+                    <!-- Método de pago -->
+                    <div class="form-group">
+                        <label>Método de Pago *</label>
+                        <div class="payment-methods">
+                            <div class="payment-method">
+                                <input 
+                                    type="radio" 
+                                    id="visa" 
+                                    name="metodo_pago" 
+                                    value="Visa" 
+                                    required
+                                >
+                                <label for="visa" class="payment-method-label">
+                                    <div class="card-icon visa-icon">VISA</div>
+                                    <span>Visa</span>
+                                </label>
+                            </div>
+                            
+                            <div class="payment-method">
+                                <input 
+                                    type="radio" 
+                                    id="mastercard" 
+                                    name="metodo_pago" 
+                                    value="Mastercard"
+                                >
+                                <label for="mastercard" class="payment-method-label">
+                                    <div class="card-icon mastercard-icon">MC</div>
+                                    <span>Mastercard</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón de pago -->
+                    <button type="submit" class="btn-submit" id="btnPagar">
+                        Confirme su pago
+                    </button>
+
+                    <p class="form-note">Seleccione su método de pago</p>
+                    
+                    <div class="payment-logos">
+                        <div class="logo-item">VISA</div>
+                        <div class="logo-item mastercard">Mastercard</div>
+                    </div>
+                    
+                    <p class="form-note small">* Campos obligatorios</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon success">✓</div>
+            <h3>¡Pago Exitoso!</h3>
+            <p id="successMessage"></p>
+            <div class="modal-actions">
+                <button class="btn-modal btn-download" onclick="descargarComprobante()">📥 Descargar Comprobante</button>
+                <button class="btn-modal btn-print" onclick="imprimirComprobante()">🖨️ Imprimir</button>
+                <button class="btn-modal" onclick="closeModal()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Área oculta para imprimir comprobante -->
+    <div id="comprobanteImpresion" style="display: none;">
+        <div class="comprobante-print">
+            <div class="comprobante-header">
+                <h1>COMPROBANTE DE PAGO</h1>
+                <p class="banco-name">Banco Robles</p>
+            </div>
+            <hr>
+            <div class="comprobante-body" id="comprobanteContent">
+                <!-- Contenido dinámico -->
+            </div>
+            <hr>
+            <div class="comprobante-footer">
+                <p>¡Gracias por su pago!</p>
+                <p class="small-text">Este comprobante es válido como constancia de pago</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de error -->
+    <div id="errorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-icon error">✕</div>
+            <h3>Error en el Pago</h3>
+            <p id="errorMessage"></p>
+            <button class="btn-modal" onclick="closeErrorModal()">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Loader de procesamiento -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p class="loader-text">Procesando pago...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
