@@ -1,0 +1,25 @@
+{
+  "name": "implementaciones-sistemas-de-pago",
+  "version": "1.0.0",
+  "description": "Sistema de Pagos Online - Simulación de procesamiento bancario en tiempo real con Node.js y Express",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js",
+    "test": "node tests/luhnValidator.test.js"
+  },
+  "keywords": [
+    "payment-system",
+    "banking",
+    "luhn-algorithm",
+    "express",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}

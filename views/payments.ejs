@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesar Pago - Sistema de Pagos Online</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💳 Sistema de Pagos Online</h1>
+            <nav>
+                <a href="/" class="nav-link">← Volver al Inicio</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="payment-section">
+                <h2>Procesar Pago</h2>
+
+                <div id="alertContainer"></div>
+
+                <form id="paymentForm" class="payment-form">
+                    <div class="form-section">
+                        <h3>Información del Cliente</h3>
+                        <div class="form-group">
+                            <label for="clientName">Nombre Completo *</label>
+                            <input type="text" id="clientName" name="clientName" required 
+                                   placeholder="Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label for="clientEmail">Correo Electrónico *</label>
+                            <input type="email" id="clientEmail" name="clientEmail" required 
+                                   placeholder="juan@ejemplo.com">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Información de la Tarjeta</h3>
+                        <div class="form-group">
+                            <label for="cardNumber">Número de Tarjeta *</label>
+                            <input type="text" id="cardNumber" name="cardNumber" required 
+                                   placeholder="1234 5678 9012 3456" maxlength="19">
+                            <small class="form-help">Ingrese 16 dígitos (Visa o Mastercard)</small>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Fecha de Vencimiento *</label>
+                                <input type="text" id="expiryDate" name="expiryDate" required 
+                                       placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" required 
+                                       placeholder="123" maxlength="4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>Detalles del Pago</h3>
+                        <div class="form-group">
+                            <label for="companyId">Empresa a Pagar *</label>
+                            <select id="companyId" name="companyId" required>
+                                <option value="">Seleccione una empresa...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Monto (USD) *</label>
+                            <input type="number" id="amount" name="amount" required 
+                                   placeholder="100.00" step="0.01" min="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            Procesar Pago
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="paymentResult" class="payment-result" style="display: none;"></div>
+
+                <div class="recent-payments">
+                    <h3>Historial de Pagos Recientes</h3>
+                    <div id="paymentHistory">
+                        <p class="text-muted">Cargando...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Sistema de Pagos Online</p>
+        </footer>
+    </div>
+
+    <script src="/js/payment.js"></script>
+</body>
+</html>
